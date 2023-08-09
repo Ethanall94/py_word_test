@@ -16,6 +16,7 @@ cnt = 0
 multi_choice = []
 word_list = []
 
+
 # 문제 생성
 def next_question():
 	global answer
@@ -42,19 +43,26 @@ def check_answer(idx, multi_choice, answer):
 	idx = int(idx)
 
 	cnt = cnt + 1
+	# print(cnt)
 
 	if cnt == 500: # 500번 돌고 끝남
 		window.destroy()
 	else:
+		# 카운트 출력
+		cnt_label = Label(window, width=5, height=2, text=cnt,
+		font=("나눔바른펜", 25, "bold"), bg=BGCOLOR, fg="white")
+		cnt_label.place(relx=0.9, rely=0.9)
+
 		if answer == idx:
 			# 버튼 색 변경
 			buttons[idx].config(bg=CORRECT_COLOR)
-			window.after(500, next_question)
+			window.after(300, next_question)
 		else: # 틀렸을 때
 			buttons[idx].config(bg=WRONG_COLOR)
 			word_list.append(multi_choice[answer])
-			window.after(500, next_question)
-			
+			window.after(300, next_question)
+
+	# return cnt
 
 window = Tk()
 
@@ -72,7 +80,6 @@ for i in range(4):
 	command = lambda idx=i: check_answer(idx, multi_choice, answer))
 	btn.pack()
 	buttons.append(btn)
-
 
 next_btn = Button(window, text="NEXT", width=15, height=2, 
 command = next_question,
