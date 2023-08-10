@@ -50,8 +50,8 @@ def check_answer(idx, multi_choice, answer):
 	else:
 		# 카운트 출력
 		cnt_label = Label(window, width=5, height=2, text=cnt,
-		font=("나눔바른펜", 25, "bold"), bg=BGCOLOR, fg="white")
-		cnt_label.place(relx=0.9, rely=0.9)
+		font=("나눔바른펜", 15, "bold"), bg=BGCOLOR, fg="white")
+		cnt_label.place(relx=0.88, rely=0.9)
 
 		if answer == idx:
 			# 버튼 색 변경
@@ -68,7 +68,7 @@ window = Tk()
 
 window.title("영어 퀴즈")
 window.config(padx=30, pady=10, bg=BGCOLOR)
-question_label = Label(window, width=20, height=2, text="Test",
+question_label = Label(window, height=2, text="Test",
 	font=("나눔바른펜", 25, "bold"), bg=BGCOLOR, fg="white")
 question_label.pack(pady=30)
 
@@ -78,7 +78,7 @@ for i in range(4):
 	btn = Button(window, text=f"{i}번", width=35, height=2, 
 	font=("나눔바른펜", 15, "bold"), bg=BTN_COLOR,
 	command = lambda idx=i: check_answer(idx, multi_choice, answer))
-	btn.pack()
+	btn.pack(pady=2)
 	buttons.append(btn)
 
 next_btn = Button(window, text="NEXT", width=15, height=2, 
