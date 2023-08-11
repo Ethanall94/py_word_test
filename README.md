@@ -14,6 +14,6 @@ pyinstaller -F -w wordTest.py<br>
  - NEXT 클릭 시 틀린 단어로 넘기기
  - 1/500 카운팅하기 - place로 해결, 230810
 
-### Use
+### Usage
 - 사용 시 csv file 이름을 eng_word.csv 로 변경 요망
 - 데이터는 `단어,뜻` 으로 입력되어야함
