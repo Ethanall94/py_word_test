@@ -11,29 +11,36 @@ import random
 with open("eng_word.csv", "r", encoding="UTF-8-sig") as file:
 	questions = list(csv.reader(file))
 
+# 초기화
 answer = 0
 cnt = 0
 multi_choice = []
+used_words = set()  # 이미 사용한 단어를 기록할 집합
 word_list = []
-
 
 # 문제 생성
 def next_question():
-	global answer
-	global multi_choice
+    global answer, multi_choice
 
-	for i in range(4):
-		buttons[i].config(bg=BTN_COLOR)
+    for i in range(4):
+        buttons[i].config(bg=BTN_COLOR)
 
-	# 문제와 정답 추출
-	multi_choice = random.sample(questions, 4)
-	answer = random.randint(0,3)
-	cur_question = multi_choice[answer][0]
+    # 문제와 정답 추출
+    available_choices = [q for q in questions if q[0] not in used_words]
+    if len(available_choices) < 4:
+        used_words.clear()  # 모든 단어를 사용한 경우 기록 초기화
+        available_choices = questions
 
-	question_label.config(text=cur_question)
+    multi_choice = random.sample(available_choices, 4)
+    answer = random.randint(0, 3)
+    cur_question = multi_choice[answer][0]
 
-	for i in range(4):
-		buttons[i].config(text=multi_choice[i][1])
+    question_label.config(text=cur_question)
+    
+    for i in range(4):
+        buttons[i].config(text=multi_choice[i][1])
+	
+    used_words.add(cur_question)  # 사용한 단어 기록
 
 # 정답 체크
 def check_answer(idx, multi_choice, answer):
@@ -67,7 +74,7 @@ def check_answer(idx, multi_choice, answer):
 window = Tk()
 
 window.title("영어 퀴즈")
-window.config(padx=30, pady=10, bg=BGCOLOR)
+window.config(padx=40, pady=10, bg=BGCOLOR)
 question_label = Label(window, height=2, text="Test",
 	font=("나눔바른펜", 25, "bold"), bg=BGCOLOR, fg="white")
 question_label.pack(pady=30)
