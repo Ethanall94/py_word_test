@@ -7,8 +7,9 @@ NEXT_BTN = "#c0c0c0"
 import csv
 from tkinter import *
 import random
+import pyttsx3
 
-with open("eng_word.csv", "r", encoding="UTF-8-sig") as file:
+with open("./eng_word.csv", "r", encoding="UTF-8-sig") as file:
 	questions = list(csv.reader(file))
 
 # 초기화
@@ -18,6 +19,11 @@ multi_choice = []
 used_words = set()  # 이미 사용한 단어를 기록할 집합
 word_list = []
 
+def speak_word():
+	engine = pyttsx3.init()
+	engine.say(multi_choice[answer][0])
+	engine.runAndWait()
+	
 # 문제 생성
 def next_question():
     global answer, multi_choice
@@ -34,7 +40,7 @@ def next_question():
     multi_choice = random.sample(available_choices, 4)
     answer = random.randint(0, 3)
     cur_question = multi_choice[answer][0]
-
+    
     question_label.config(text=cur_question)
     
     for i in range(4):
@@ -71,6 +77,11 @@ def check_answer(idx, multi_choice, answer):
 
 	# return cnt
 
+# NEXT 버튼 클릭 시에도 오답처리하는 것처럼 결과창에 정답 추가
+def on_next_button_click():
+    word_list.append(multi_choice[answer])
+    return next_question()
+    
 window = Tk()
 
 window.title("영어 퀴즈")
@@ -78,6 +89,11 @@ window.config(padx=40, pady=10, bg=BGCOLOR)
 question_label = Label(window, height=2, text="Test",
 	font=("나눔바른펜", 25, "bold"), bg=BGCOLOR, fg="white")
 question_label.pack(pady=30)
+
+speak_btn = Button(window, text="발음",
+	command = speak_word,
+	font = ("나눔바른펜", 12, "bold"), bg=NEXT_BTN)
+speak_btn.place(relx=0.88)
 
 buttons=[]
 
@@ -89,8 +105,8 @@ for i in range(4):
 	buttons.append(btn)
 
 next_btn = Button(window, text="NEXT", width=15, height=2, 
-command = next_question,
-font = ("나눔바른펜", 15, "bold"), bg=NEXT_BTN)
+	command = on_next_button_click,
+	font = ("나눔바른펜", 15, "bold"), bg=NEXT_BTN)
 next_btn.pack(pady=30)
 
 next_question()
