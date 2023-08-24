@@ -29,3 +29,9 @@
 - (주의) csv 파일과 exe 파일이 같은 폴더 내에 있어야 정상 작동함
 - 사용 시 csv file 이름을 eng_word.csv 로 변경 요망
 - 데이터는 `단어,뜻` 형식으로 입력되어야함
+
+
+### 동작 화면
+![quiz](https://github.com/Ethanall94/py_word_test/assets/85244599/2722cd1d-3139-4be1-9205-b499f2ae672f)
+![result](https://github.com/Ethanall94/py_word_test/assets/85244599/7d2a5e7a-37f6-4aa8-9371-2723cc270aa7)
+
