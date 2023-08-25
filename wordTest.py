@@ -21,6 +21,10 @@ word_list = []
 
 def speak_word():
 	engine = pyttsx3.init()
+
+	en_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0"
+	engine.setProperty('voice', en_voice_id)
+
 	engine.say(multi_choice[answer][0])
 	engine.runAndWait()
 	
@@ -56,7 +60,6 @@ def check_answer(idx, multi_choice, answer):
 	idx = int(idx)
 
 	cnt = cnt + 1
-	# print(cnt)
 
 	if cnt == 500: # 500번 돌고 끝남
 		window.destroy()
@@ -75,8 +78,6 @@ def check_answer(idx, multi_choice, answer):
 			word_list.append(multi_choice[answer])
 			window.after(300, next_question)
 
-	# return cnt
-
 # NEXT 버튼 클릭 시에도 오답처리하는 것처럼 결과창에 정답 추가
 def on_next_button_click():
     word_list.append(multi_choice[answer])
@@ -90,10 +91,10 @@ question_label = Label(window, height=2, text="Test",
 	font=("나눔바른펜", 25, "bold"), bg=BGCOLOR, fg="white")
 question_label.pack(pady=30)
 
-speak_btn = Button(window, text="발음",
+speak_btn = Button(window, text="▶",
 	command = speak_word,
-	font = ("나눔바른펜", 12, "bold"), bg=NEXT_BTN)
-speak_btn.place(relx=0.88)
+	font = ("나눔바른펜", 12, "bold"), bg=BGCOLOR)
+speak_btn.place(relx=0.01, rely=0.9)
 
 buttons=[]
 
